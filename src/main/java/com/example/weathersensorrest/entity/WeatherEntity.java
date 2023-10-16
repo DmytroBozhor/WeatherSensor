@@ -1,8 +1,7 @@
 package com.example.weathersensorrest.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,14 +17,14 @@ public class WeatherEntity {
     @Column(name = "id")
     private int id;
     @Column(name = "temperature")
-    @Min(0)
-    @Max(100)
+    @NotNull
     private int temperature;
     @Column(name = "rain")
-    private boolean isRaining;
+    @NotNull
+    private boolean rain;
 
-    public WeatherEntity(int temperature, boolean isRaining) {
+    public WeatherEntity(int temperature, boolean rain) {
         this.temperature = temperature;
-        this.isRaining = isRaining;
+        this.rain = rain;
     }
 }
