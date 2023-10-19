@@ -1,5 +1,7 @@
-package com.example.weathersensorrest.controller;
+package com.example.weathersensorrest.util;
 
+import com.example.weathersensorrest.exception.SensorNotCreatedException;
+import com.example.weathersensorrest.exception.SensorNotCreatedResponse;
 import com.example.weathersensorrest.exception.WeatherNotCreatedResponse;
 import com.example.weathersensorrest.exception.WeatherNotCreatedException;
 import org.springframework.http.HttpStatus;
@@ -15,5 +17,12 @@ public class ExceptionHandlerController {
         WeatherNotCreatedResponse weatherNotCreatedResponse = new WeatherNotCreatedResponse(
                 e.getMessage(), System.currentTimeMillis());
         return new ResponseEntity<>(weatherNotCreatedResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(SensorNotCreatedException.class)
+    public ResponseEntity<SensorNotCreatedResponse> handleException(SensorNotCreatedException e) {
+        SensorNotCreatedResponse sensorNotCreatedResponse = new SensorNotCreatedResponse(
+                e.getMessage(), System.currentTimeMillis());
+        return new ResponseEntity<>(sensorNotCreatedResponse, HttpStatus.BAD_REQUEST);
     }
 }
