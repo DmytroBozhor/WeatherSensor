@@ -22,17 +22,18 @@ public class SensorController {
 
     private final SensorService sensorService;
     private final SensorUniqueNameValidation validation;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public SensorController(SensorService sensorService, SensorUniqueNameValidation validation) {
+    public SensorController(SensorService sensorService, SensorUniqueNameValidation validation, ModelMapper modelMapper) {
         this.sensorService = sensorService;
         this.validation = validation;
+        this.modelMapper = modelMapper;
     }
 
     @PostMapping("/registration")
     public ResponseEntity<HttpStatus> register(@RequestBody @Valid SensorDTO sensorDTO, BindingResult bindingResult) {
-
-        validation.validate(new ModelMapper().map(sensorDTO, SensorEntity.class), bindingResult);
+        validation.validate(modelMapper.map(sensorDTO, SensorEntity.class), bindingResult);
 
         if (bindingResult.hasErrors()) {
             StringBuilder stringBuilder = new StringBuilder();

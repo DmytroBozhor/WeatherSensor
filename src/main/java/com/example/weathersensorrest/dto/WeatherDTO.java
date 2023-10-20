@@ -1,24 +1,30 @@
 package com.example.weathersensorrest.dto;
 
-import jakarta.persistence.Column;
+import com.example.weathersensorrest.entity.SensorEntity;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class WeatherDTO {
-    @Column(name = "temperature")
     @NotNull
+    @Min(-100)
+    @Max(100)
     private int temperature;
-    @Column(name = "rain")
     @NotNull
     private boolean rain;
+    @NotNull
+    private SensorEntity sensor;
 
-    public WeatherDTO(int temperature, boolean rain) {
+    public WeatherDTO() {
+    }
+
+    public WeatherDTO(int temperature, boolean rain, SensorEntity sensor) {
         this.temperature = temperature;
         this.rain = rain;
+        this.sensor = sensor;
     }
 }

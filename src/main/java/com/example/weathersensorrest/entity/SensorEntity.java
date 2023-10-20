@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "sensor")
 @Getter
@@ -21,6 +23,8 @@ public class SensorEntity {
     @Size(min = 3, max = 30)
     @Column(name = "name")
     private String name;
+    @OneToMany(targetEntity = WeatherEntity.class, mappedBy = "sensor")
+    private List<WeatherEntity> weather;
 
     public SensorEntity() {
     }
