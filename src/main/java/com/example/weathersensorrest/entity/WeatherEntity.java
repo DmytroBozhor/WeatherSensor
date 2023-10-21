@@ -3,11 +3,10 @@ package com.example.weathersensorrest.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "weather")
@@ -27,7 +26,7 @@ public class WeatherEntity {
     @NotNull
     private boolean rain;
     @ManyToOne(targetEntity = SensorEntity.class)
-    @JoinColumn(name = "sensor_fk", referencedColumnName = "id")
+    @JoinColumn(name = "sensor_fk", referencedColumnName = "name")
     @NotNull
     private SensorEntity sensor;
     @Column(name = "timestamp")
@@ -41,5 +40,16 @@ public class WeatherEntity {
         this.rain = rain;
         this.sensor = sensor;
         this.timestamp = timestamp;
+    }
+
+    @Override
+    public String toString() {
+        return "WeatherEntity{" +
+                "id=" + id +
+                ", temperature=" + temperature +
+                ", rain=" + rain +
+                ", sensor=" + sensor +
+                ", timestamp=" + timestamp +
+                '}';
     }
 }

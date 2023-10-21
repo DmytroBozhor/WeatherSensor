@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 @RestController
 @RequestMapping("/sensors")
 public class SensorController {
@@ -33,7 +37,8 @@ public class SensorController {
 
     @PostMapping("/registration")
     public ResponseEntity<HttpStatus> register(@RequestBody @Valid SensorDTO sensorDTO, BindingResult bindingResult) {
-        validation.validate(modelMapper.map(sensorDTO, SensorEntity.class), bindingResult);
+        SensorEntity sensor = modelMapper.map(sensorDTO, SensorEntity.class);
+        validation.validate(sensor, bindingResult);
 
         if (bindingResult.hasErrors()) {
             StringBuilder stringBuilder = new StringBuilder();
@@ -44,7 +49,7 @@ public class SensorController {
             throw new SensorNotCreatedException(stringBuilder.toString());
         }
 
-        sensorService.save(sensorDTO);
+        sensorService.save(sensor);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 }

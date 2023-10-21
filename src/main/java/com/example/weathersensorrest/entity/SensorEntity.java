@@ -1,8 +1,7 @@
 package com.example.weathersensorrest.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -23,6 +22,7 @@ public class SensorEntity {
     @Size(min = 3, max = 30)
     @Column(name = "name")
     private String name;
+    @JsonIgnore
     @OneToMany(targetEntity = WeatherEntity.class, mappedBy = "sensor")
     private List<WeatherEntity> weather;
 

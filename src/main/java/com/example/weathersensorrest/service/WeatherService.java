@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class WeatherService {
@@ -24,5 +26,13 @@ public class WeatherService {
 
     public void save(WeatherDTO weatherDTO) {
         weatherRepository.save(new ModelMapper().map(weatherDTO, WeatherEntity.class));
+    }
+
+    public List<WeatherEntity> getAll() {
+        return weatherRepository.findAll();
+    }
+
+    public List<WeatherEntity> findAllByRaining(Boolean raining) {
+        return weatherRepository.findAllByRain(raining);
     }
 }
